@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { getDatabase, onValue, push, ref } from "firebase/database";
+import "./App.css";
+import Menu from "./components/Menu";
+import NoteAdd from "./components/NoteAdd";
+import NoteList from "./components/NoteList";
+import { dataNote } from "./connect";
+
+const addData = (item) => {
+  // console.log(item);   
+  push(dataNote, item);
+};
 
 function App() {
+  // console.log(connect);
+  // console.log(dataNote);
+  // const db = getDatabase();
+  // const data = ref(db, 'note/');
+  // onValue(data, (snapshot) => {
+  //   const data = snapshot.val();
+  //   console.log(data);
+  // });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Menu />
+      <div className="container">
+        <div className="row">
+          <NoteList />
+          <NoteAdd getData={(item) => addData(item)} />
+        </div>
+      </div>
     </div>
   );
 }
