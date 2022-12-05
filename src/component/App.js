@@ -27,6 +27,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [id, setID] = useState("");
+  const [dataSearch, setDataSearch] = useState("");
   // const dbRef = ref(getDatabase());
   // get(child(dbRef, `note/`))
   //   .then((snapshot) => {
@@ -57,10 +58,15 @@ function App() {
       noteContent: item.content,
     });
   };
-
+  
+  const getDataSearch = (data) => {
+    // console.log(data);
+    setDataSearch(data);
+  };
+  
   return (
     <div>
-      <Menu />
+      <Menu getDataSearch={(data) => getDataSearch(data)}/>
       <div className="container">
         <div className="row">
           <FormSua
@@ -75,6 +81,7 @@ function App() {
             getData={(title, content, id) => {
               getData(title, content, id);
             }}
+            data={dataSearch}
           />
           <NoteAdd getData={(item) => addData(item)} />
         </div>

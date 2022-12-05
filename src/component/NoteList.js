@@ -52,20 +52,22 @@ export default class NoteList extends Component {
     // console.log(this.state.dataFirebase);
     if (this.state.dataFirebase) {
       return this.state.dataFirebase.map((value, key) => {
-        return (
-          <NoteItem
-            key={key}
-            i={key}
-            noteTitle={value.noteTitle}
-            noteContent={value.noteContent}
-            id={value.id}
-            deleteID={(id) => this.deleteID(id)}
-            onClickEdit={() => this.props.onClick()}
-            getDataForm={(title, content, id) =>
-              this.props.getData(title, content, id)
-            }
-          />
-        );
+        if (value.noteContent.indexOf(this.props.data) !== -1) {
+          return (
+            <NoteItem
+              key={key}
+              i={key}
+              noteTitle={value.noteTitle}
+              noteContent={value.noteContent}
+              id={value.id}
+              deleteID={(id) => this.deleteID(id)}
+              onClickEdit={() => this.props.onClick()}
+              getDataForm={(title, content, id) =>
+                this.props.getData(title, content, id)
+              }
+            />
+          );
+        }
       });
     }
   };
@@ -78,6 +80,7 @@ export default class NoteList extends Component {
   };
 
   render() {
+    // console.log(this.props.data);
     // console.log(this.state.dataFirebase);
     return (
       <div className="col-sm-9">
